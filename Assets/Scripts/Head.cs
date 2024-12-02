@@ -1,3 +1,6 @@
+using SkulWatermelon.Data;
+using System;
+using SkulWatermelon.Core;
 using UnityEngine;
 
 namespace SkulWatermelon.Model
@@ -6,15 +9,60 @@ namespace SkulWatermelon.Model
     {
         [SerializeField]
         new Rigidbody2D rigidbody2D;
-        
+        [SerializeField]
+        SpriteRenderer spriteRenderer;
+        [SerializeField]
+        new Collider2D collider;
+        [SerializeField]
         int level = 0;
-
-        public void Hold() => rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-        public void Unhold() => rigidbody2D.constraints = RigidbodyConstraints2D.None;
-
-        public void SetLevel(int level)
+        [SerializeField]
+        int score;
+        
+        bool evolutionable = false;
+        public int Score { get => score; }
+        float rotation;
+        
+        public event Action<Head, Head, int> OnCollide;
+        
+        public void Hold()
         {
-            
+            evolutionable = false;
+            collider.enabled = false;
+            rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+        }
+        public void Unhold()
+        {
+            evolutionable = true;
+            collider.enabled = true;
+            rigidbody2D.constraints = RigidbodyConstraints2D.None;
+        }
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (evolutionable == false)
+                return;
+
+            var targetHead = collision.gameObject.GetComponent<Head>();
+            if (targetHead != null)
+            {
+                if (targetHead.evolutionable == false)
+                    return;
+
+                if (targetHead.level != level)
+                    return;
+
+                EventQueue.Instance.Publish(new CollideData(){headOne = this, headTwo = targetHead, nextLevel = level + 1});
+            }
+        }
+        
+        public Sprite GetSprite()
+        {
+            return spriteRenderer.sprite;
+        }
+
+        public void UnregisterAll()
+        {
+            OnCollide = null;
         }
     }
 }

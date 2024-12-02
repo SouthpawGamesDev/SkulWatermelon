@@ -1,43 +1,46 @@
+using SkulWatermelon.Core;
 using System;
-using Unity.Mathematics;
 using UnityEngine;
-using Random = UnityEngine.Random;
 namespace SkulWatermelon.Model
 {
-    [Serializable]
     public sealed class HeadDropper
     {
-        [SerializeField]
-        Head headPrefab;
-
-        [SerializeField]
+        Transform transform;
         Vector2 range;
-
-        [SerializeField]
-        [Range(1f, 100f)]
         float speed;
-
-        Head currentHead;
-
         HeadGenerator headGenerator;
 
-        public void Start()
+        public event Action HeadDropped;
+
+        public HeadDropper(Transform transform, Vector2 range, float speed, HeadGenerator headGenerator)
         {
-            headGenerator = new HeadGenerator(headPrefab);
-            
-            currentHead = headGenerator.GetHead();
+            this.transform = transform;
+            this.range = range;
+            this.speed = speed;
+            this.headGenerator = headGenerator;
         }
-        
+
         public void Move(float value)
         {
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x + value * Time.deltaTime*speed, range.x, range.y), transform.position.y, transform.position.z);
-            currentHead.transform.position = transform.position;
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x + value * Time.deltaTime * speed, range.x, range.y), transform.position.y, transform.position.z);
         }
-        
+
         public void Drop()
         {
-            currentHead.Unhold();
-            currentHead = headGenerator.GetHead();
+            var head = headGenerator.GetHead();
+            head.Unhold();
+            head.transform.position = transform.position;
+            HeadDropped?.Invoke();
+        }
+
+        public void Update()
+        {
+            var input = GameManager.Instance.input;
+            float moveValue = input.GetMoveInput();
+            Move(moveValue);
+
+            if (input.GetDropInput())
+                Drop();
         }
     }
 }
