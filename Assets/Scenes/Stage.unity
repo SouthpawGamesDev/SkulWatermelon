@@ -119,37 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &354952938
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 354952940}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &354952940
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354952938}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2366924, y: -2.1000762, z: -0.06252157}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406281044
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 406281046}
   - component: {fileID: 406281045}
-  - component: {fileID: 406281047}
   m_Layer: 0
   m_Name: HeadDropper
   m_TagString: Untagged
@@ -238,20 +206,6 @@ Transform:
   - {fileID: 1469460239}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &406281047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 406281044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a9732336dd1fcc4ab693121aff3f5de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: {x: -5, y: 5}
-  speed: 2
 --- !u!1 &410769370
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +319,6 @@ GameObject:
   - component: {fileID: 519072868}
   - component: {fileID: 519072870}
   - component: {fileID: 519072869}
-  - component: {fileID: 519072871}
   m_Layer: 5
   m_Name: NextHeadImage
   m_TagString: Untagged
@@ -431,21 +384,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519072867}
   m_CullTransparentMesh: 1
---- !u!114 &519072871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519072867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f97ecb8f043c3df4095c341b4d4d4d77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextHead: {fileID: 519072869}
-  currentHeadRenderer: {fileID: 1469460241}
-  stageManager: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,8 +652,10 @@ MonoBehaviour:
   stageData:
     headPrefab: {fileID: 4508582168581853510, guid: abd23e0197981d64fa5a6c1d627ea24d, type: 3}
     headDropperTransform: {fileID: 406281046}
-    headDropperRange: {x: -5, y: 5}
+    headDropperRange: {x: -2.3, y: 2.3}
     headDropperSpeed: 2.5
+    nextHead: {fileID: 519072869}
+    currentHeadRenderer: {fileID: 1469460241}
 --- !u!4 &619233471
 Transform:
   m_ObjectHideFlags: 0
@@ -1526,7 +1466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1608497413}
   m_Layer: 0
-  m_Name: Box
+  m_Name: Arena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1807,7 +1747,6 @@ SceneRoots:
   - {fileID: 410769374}
   - {fileID: 568720312}
   - {fileID: 406281046}
-  - {fileID: 354952940}
   - {fileID: 1608497413}
   - {fileID: 619233471}
   - {fileID: 1245649588}

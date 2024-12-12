@@ -1,6 +1,9 @@
 using SkulWatermelon.Model;
 using System;
+using SkulWatermelon.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace SkulWatermelon.Core
 {
@@ -11,5 +14,7 @@ namespace SkulWatermelon.Core
         public Transform headDropperTransform;
         public Vector2 headDropperRange;
         public float headDropperSpeed;
+        public Image nextHead;
+        public SpriteRenderer currentHeadRenderer;
     }
 }

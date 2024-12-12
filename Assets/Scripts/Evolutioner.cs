@@ -7,35 +7,26 @@ namespace SkulWatermelon.Model
 {
     public class Evolutioner
     {
-        Func<int, Head> getHead;
-        
-        public Evolutioner(Func<int, Head> getHead)
+        public void Evolve(Head headOne, Head headTwo, int nextLevel)
         {
-            this.getHead = getHead;
+            var centerPosition = (headOne.transform.position + headTwo.transform.position) / 2;
             
-            EventQueue.Instance.Subscribe<CollideData>(Evolve);
-        }
-        
-        public void Evolve(CollideData collideData)
-        {
-            var centerPosition = (collideData.headOne.transform.position + collideData.headTwo.transform.position) / 2;
+            headOne.Hold();
+            headTwo.Hold();
             
-            collideData.headOne.Hold();
-            collideData.headTwo.Hold();
+            UnityEngine.Object.Destroy(headOne.gameObject);
+            UnityEngine.Object.Destroy(headTwo.gameObject);
             
-            UnityEngine.Object.Destroy(collideData.headOne.gameObject);
-            UnityEngine.Object.Destroy(collideData.headTwo.gameObject);
-            
-            if (GameManager.Instance.GameResourceManager.maximumLevel == collideData.nextLevel)
+            if (GameManager.Instance.GameResourceManager.maximumLevel == nextLevel)
                 return;
             
-            var newHead = getHead?.Invoke(collideData.nextLevel);
-            newHead.Unhold();
-            newHead.transform.position = centerPosition;
-            
-            
-            
-            //GameManager.Instance.GameCycle.AddScore(Score.Of(newHead.Score));
+            TEMPGameLogic.Instance.SendEvolutionCompletedData(nextLevel, centerPosition, 합쳐졌을때로테이션을알아오는함수());
+        }
+        
+        // TODO : 정책 클래스로 빼야함
+        float 합쳐졌을때로테이션을알아오는함수()
+        {
+            return UnityEngine.Random.Range(-180f, 180f); 
         }
     }
 }

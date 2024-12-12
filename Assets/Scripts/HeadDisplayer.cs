@@ -9,40 +9,37 @@ using SkulWatermelon.Core;
 
 namespace SkulWatermelon.UI
 {
-    public class NextHeadDisplayer : MonoBehaviour
+    public class HeadDisplayer
     {
-        [SerializeField]
         Image nextHead;
-
-        [SerializeField]
         SpriteRenderer currentHeadRenderer;
+        HeadDropper headDropper;
 
-        [SerializeField]
-        StageManager stageManager;
-
-        void Start()
+        public HeadDisplayer(Image nextHead, SpriteRenderer currentHeadRenderer, HeadDropper headDropper)
         {
+            this.nextHead = nextHead;
+            this.currentHeadRenderer = currentHeadRenderer;
+            this.headDropper = headDropper;
+
             Change();
-            stageManager.GameCycle.HeadDropper.HeadDropped += Change;
+            headDropper.HeadDropped += Change;
         }
 
         void OnDestroy()
         {
-            stageManager.GameCycle.HeadDropper.HeadDropped -= Change;
+            headDropper.HeadDropped -= Change;
         }
 
         void Change()
         {
-            var headGenerator = stageManager.GameCycle.HeadGenerator;
-
-            var currentLevel = headGenerator.current;
+            var currentLevel = headDropper.currentLevel;
             var headPrefab = GameManager.Instance.GameResourceManager.GetHeadPrefab(currentLevel);
 
             currentHeadRenderer.sprite = headPrefab.GetSprite();
-            currentHeadRenderer.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, headGenerator.currentRotation));
+            currentHeadRenderer.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, headDropper.currentRotation));
             currentHeadRenderer.transform.localScale = headPrefab.transform.localScale;
-                
-            var nextLevel = headGenerator.next;
+
+            var nextLevel = headDropper.nextLevel;
             var nextSprite = GameManager.Instance.GameResourceManager.GetHeadPrefab(nextLevel).GetSprite();
             nextHead.sprite = nextSprite;
         }

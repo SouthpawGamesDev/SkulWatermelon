@@ -1,5 +1,6 @@
 using SkulWatermelon.Model;
 using System;
+using SkulWatermelon.UI;
 using UnityEngine;
 
 namespace SkulWatermelon.Core
@@ -10,28 +11,27 @@ namespace SkulWatermelon.Core
         public Score Score { get; private set; }
         public GameResourceManager GameResourceManager { get; private set; }
         public HeadDropper HeadDropper { get; private set; }
-        public EventQueue EventQueue { get; private set; }
 
         public GameCycle(StageData stageData)
         {
             Score = Score.Of(0);
             HeadGenerator = new HeadGenerator();
             HeadDropper = new HeadDropper(stageData.headDropperTransform, stageData.headDropperRange, stageData.headDropperSpeed, HeadGenerator);
-            EventQueue = new EventQueue();
+            
+            HeadDisplayer headDisplayer = new HeadDisplayer(stageData.nextHead, stageData.currentHeadRenderer, HeadDropper);
+
+            TEMPGameLogic.Instance.InjectGameCycle(this);
         }
 
         public void Update()
         {
             HeadDropper.Update();
-            EventQueue.Update();
         }
 
-        public void AddScore(Score add)
+        public void AddScore(int amount)
         {
-            Score = Score.Of(Score.Amount + add.Amount);
+            Score = Score.Of(Score.Amount + amount);
+            Debug.Log(Score.Amount);
         }
-
-
-
     }
 }

@@ -1,7 +1,5 @@
 using SkulWatermelon.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 
 namespace SkulWatermelon.Model
 {

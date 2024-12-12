@@ -17,13 +17,11 @@ namespace SkulWatermelon.Model
         int level = 0;
         [SerializeField]
         int score;
-        
+
         bool evolutionable = false;
         public int Score { get => score; }
         float rotation;
-        
-        public event Action<Head, Head, int> OnCollide;
-        
+
         public void Hold()
         {
             evolutionable = false;
@@ -51,18 +49,13 @@ namespace SkulWatermelon.Model
                 if (targetHead.level != level)
                     return;
 
-                EventQueue.Instance.Publish(new CollideData(){headOne = this, headTwo = targetHead, nextLevel = level + 1});
+                TEMPGameLogic.Instance.SendHeadColideData(this, targetHead, level + 1);
             }
         }
-        
+
         public Sprite GetSprite()
         {
             return spriteRenderer.sprite;
-        }
-
-        public void UnregisterAll()
-        {
-            OnCollide = null;
         }
     }
 }
