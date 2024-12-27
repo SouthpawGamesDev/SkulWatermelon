@@ -6,12 +6,12 @@ namespace SkulWatermelon.Model
     [Serializable]
     public class HeadGenerator
     {
-        public Head GetHead(int level, Vector2 position, float rotation)
+        public Head GetHead(HeadGenerationData headGenerationData)
         {
-            Head headPrefab = GameManager.Instance.GameResourceManager.GetHeadPrefab(level);
+            Head headPrefab = GameManager.Instance.GameResourceManager.GetHeadPrefab(headGenerationData.Level);
             Head currentHead = GameObject.Instantiate(headPrefab);
-            currentHead.transform.position = position;
-            currentHead.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
+            currentHead.transform.position = headGenerationData.Position;
+            currentHead.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, headGenerationData.Rotation));
             currentHead.Hold();
             return currentHead;
         }

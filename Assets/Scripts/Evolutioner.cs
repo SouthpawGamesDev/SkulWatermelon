@@ -7,26 +7,26 @@ namespace SkulWatermelon.Model
 {
     public class Evolutioner
     {
-        public void Evolve(Head headOne, Head headTwo, int nextLevel)
+        IHeadEvolutionPolicy headEvolutionPolicy;
+        public Evolutioner(IHeadEvolutionPolicy headEvolutionPolicy)
         {
-            var centerPosition = (headOne.transform.position + headTwo.transform.position) / 2;
-            
-            headOne.Hold();
-            headTwo.Hold();
-            
-            UnityEngine.Object.Destroy(headOne.gameObject);
-            UnityEngine.Object.Destroy(headTwo.gameObject);
-            
-            if (GameManager.Instance.GameResourceManager.maximumLevel == nextLevel)
-                return;
-            
-            TEMPGameLogic.Instance.SendEvolutionCompletedData(nextLevel, centerPosition, 합쳐졌을때로테이션을알아오는함수());
+            this.headEvolutionPolicy = headEvolutionPolicy;
         }
         
-        // TODO : 정책 클래스로 빼야함
-        float 합쳐졌을때로테이션을알아오는함수()
+        public void Evolve(HeadCollisionEventData data)
         {
-            return UnityEngine.Random.Range(-180f, 180f); 
+            var centerPosition = (data.One.transform.position + data.Two.transform.position) / 2;
+            
+            data.One.Hold();
+            data.Two.Hold();
+            
+            UnityEngine.Object.Destroy(data.One.gameObject);
+            UnityEngine.Object.Destroy(data.Two.gameObject);
+            
+            if (GameManager.Instance.GameResourceManager.maximumLevel == data.NextLevel)
+                return;
+            
+            StageManager.Instance.GameLogic.Invoke(new HeadGenerationData(data.NextLevel, centerPosition, headEvolutionPolicy.GetRotation()));
         }
     }
 }

@@ -656,6 +656,20 @@ MonoBehaviour:
     headDropperSpeed: 2.5
     nextHead: {fileID: 519072869}
     currentHeadRenderer: {fileID: 1469460241}
+  gamePolicy:
+    headGenerationPolicy:
+      rid: 4896699752228061241
+    headEvolutionPolicy:
+      rid: 4896699752228061240
+  references:
+    version: 2
+    RefIds:
+    - rid: 4896699752228061240
+      type: {class: DefaultHeadEvolutionPolicy, ns: SkulWatermelon.Model, asm: Assembly-CSharp}
+      data: 
+    - rid: 4896699752228061241
+      type: {class: DefaultHeadGenerationPolicy, ns: SkulWatermelon.Model, asm: Assembly-CSharp}
+      data: 
 --- !u!4 &619233471
 Transform:
   m_ObjectHideFlags: 0

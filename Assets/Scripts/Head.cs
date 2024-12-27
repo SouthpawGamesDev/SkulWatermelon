@@ -49,7 +49,7 @@ namespace SkulWatermelon.Model
                 if (targetHead.level != level)
                     return;
 
-                TEMPGameLogic.Instance.SendHeadColideData(this, targetHead, level + 1);
+                StageManager.Instance.GameLogic.Invoke(new HeadCollisionEventData(this, targetHead, level + 1));
             }
         }
 

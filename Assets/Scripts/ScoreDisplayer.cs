@@ -10,15 +10,16 @@ namespace SkulWatermelon.UI
     {
         [SerializeField]
         Text scoreText;
-        
-        void Start()
-        {
-            //Evolution.OnEvolution += Change;
-        }
 
-        void Change()
+
+        void Update()
         {
-            //scoreText.text = Player.Instance.score.Amount.ToString();
+            UpdateScore();
+        }
+        
+        void UpdateScore()
+        {
+            scoreText.text = StageManager.Instance.GameCycle.Score.Amount.ToString();
         }
     }
 }

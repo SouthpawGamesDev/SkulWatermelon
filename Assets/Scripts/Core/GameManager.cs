@@ -11,5 +11,7 @@ namespace SkulWatermelon.Core
 
         [SerializeReference, SubclassSelector]
         public IInput input;
+        
+        
     }
 }

@@ -11,16 +11,14 @@ namespace SkulWatermelon.Core
         public Score Score { get; private set; }
         public GameResourceManager GameResourceManager { get; private set; }
         public HeadDropper HeadDropper { get; private set; }
-
-        public GameCycle(StageData stageData)
+        
+        public GameCycle(StageData stageData, GamePolicy gamePolicy)
         {
             Score = Score.Of(0);
             HeadGenerator = new HeadGenerator();
-            HeadDropper = new HeadDropper(stageData.headDropperTransform, stageData.headDropperRange, stageData.headDropperSpeed, HeadGenerator);
+            HeadDropper = new HeadDropper(stageData.headDropperTransform, stageData.headDropperRange, stageData.headDropperSpeed, HeadGenerator, gamePolicy.HeadGenerationPolicy);
             
             HeadDisplayer headDisplayer = new HeadDisplayer(stageData.nextHead, stageData.currentHeadRenderer, HeadDropper);
-
-            TEMPGameLogic.Instance.InjectGameCycle(this);
         }
 
         public void Update()
@@ -31,7 +29,6 @@ namespace SkulWatermelon.Core
         public void AddScore(int amount)
         {
             Score = Score.Of(Score.Amount + amount);
-            Debug.Log(Score.Amount);
         }
     }
 }
