@@ -1,61 +1,64 @@
-using SkulWatermelon.Data;
-using System;
-using SkulWatermelon.Core;
+using SkulWatermelon.InGame;
 using UnityEngine;
 
 namespace SkulWatermelon.Model
 {
-    public class Head : MonoBehaviour
+    public struct HeadData
+    {
+        public int Level;
+        public int Score;
+    }
+    
+    public sealed class Head : MonoBehaviour
     {
         [SerializeField]
-        new Rigidbody2D rigidbody2D;
-        [SerializeField]
         SpriteRenderer spriteRenderer;
-        [SerializeField]
-        new Collider2D collider;
+        
         [SerializeField]
         int level = 0;
         [SerializeField]
-        int score;
+        int score = 0;
 
-        bool evolutionable = false;
+        HeadData headData;
+        
+        // 중복 진화 방지
+        bool expired = false;
+        
         public int Score { get => score; }
-        float rotation;
 
-        public void Hold()
+        void Awake()
         {
-            evolutionable = false;
-            collider.enabled = false;
-            rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-        }
-        public void Unhold()
-        {
-            evolutionable = true;
-            collider.enabled = true;
-            rigidbody2D.constraints = RigidbodyConstraints2D.None;
+            headData = new HeadData()
+            {
+                Level = level,
+                Score = score,
+            };
         }
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            if (evolutionable == false)
-                return;
-
             var targetHead = collision.gameObject.GetComponent<Head>();
+            
             if (targetHead != null)
             {
-                if (targetHead.evolutionable == false)
+                if(this.expired == true || targetHead.expired == true)
                     return;
-
+                
                 if (targetHead.level != level)
                     return;
 
-                StageManager.Instance.GameLogic.Invoke(new HeadCollisionEventData(this, targetHead, level + 1));
+
+                expired = true;
+                targetHead.expired = true;
+                
+                GameCycleEventRecord.Instance.Record(new HeadCollisionEventData(this, targetHead, level + 1));
             }
         }
 
+        public HeadData GetData()
+            => headData;
+        
         public Sprite GetSprite()
-        {
-            return spriteRenderer.sprite;
-        }
+            => spriteRenderer.sprite;
     }
 }

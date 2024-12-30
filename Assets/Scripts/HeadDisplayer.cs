@@ -9,20 +9,23 @@ using SkulWatermelon.Core;
 
 namespace SkulWatermelon.UI
 {
-    public class HeadDisplayer
+    public class HeadDisplayer : MonoBehaviour
     {
+        [SerializeField]
         Image nextHead;
+        [SerializeField]
         SpriteRenderer currentHeadRenderer;
+        
+        [SerializeField]
+        Player player;
+
         HeadDropper headDropper;
-
-        public HeadDisplayer(Image nextHead, SpriteRenderer currentHeadRenderer, HeadDropper headDropper)
+        
+        void Start()
         {
-            this.nextHead = nextHead;
-            this.currentHeadRenderer = currentHeadRenderer;
-            this.headDropper = headDropper;
-
-            Change();
+            headDropper = player.HeadDropper; 
             headDropper.HeadDropped += Change;
+            Change();
         }
 
         void OnDestroy()
@@ -32,15 +35,18 @@ namespace SkulWatermelon.UI
 
         void Change()
         {
-            var currentLevel = headDropper.currentLevel;
-            var headPrefab = GameManager.Instance.GameResourceManager.GetHeadPrefab(currentLevel);
+            HeadDropper.HeadData currentData = headDropper.CurrentData;
+            HeadDropper.HeadData nextData = headDropper.NextData;
+            
+            var currentLevel = currentData.Level;
+            var headPrefab = GameManager.Instance.StageManager.Setting.GetHeadPrefab(currentLevel);
 
             currentHeadRenderer.sprite = headPrefab.GetSprite();
-            currentHeadRenderer.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, headDropper.currentRotation));
+            currentHeadRenderer.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, currentData.Rotation));
             currentHeadRenderer.transform.localScale = headPrefab.transform.localScale;
 
-            var nextLevel = headDropper.nextLevel;
-            var nextSprite = GameManager.Instance.GameResourceManager.GetHeadPrefab(nextLevel).GetSprite();
+            var nextLevel = nextData.Level;
+            var nextSprite = GameManager.Instance.StageManager.Setting.GetHeadPrefab(nextLevel).GetSprite();
             nextHead.sprite = nextSprite;
         }
     }

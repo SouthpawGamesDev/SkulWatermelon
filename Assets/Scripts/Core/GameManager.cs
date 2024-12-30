@@ -1,17 +1,39 @@
 using SkulWatermelon.Model;
+using SkulWatermelon.Settings;
 using UnityEngine;
 
 namespace SkulWatermelon.Core
 {
-
-    public class GameManager : Singletons.Singleton<GameManager>
+    public sealed class GameManager : Singletons.Singleton<GameManager>
     {
-        [field: SerializeField]
-        public GameResourceManager GameResourceManager { get; private set; }
+        [SerializeField]
+        CycleSetting setting;
+        
+        public StageManager StageManager => stageManager;
+        
+        bool loaded;
+        StageManager stageManager;
+        
+        void Awake()
+        {
+            Load();
+        }
 
-        [SerializeReference, SubclassSelector]
-        public IInput input;
+        void Update()
+        {
+            if (loaded == false)
+                return;
+            
+            stageManager.Update();
+        }
         
-        
+        public void Load()
+        {
+            // Cycle Start
+            stageManager = new StageManager();
+            stageManager.Start(setting); 
+
+            loaded = true;
+        }
     }
 }

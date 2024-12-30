@@ -129,8 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 406281046}
   - component: {fileID: 406281045}
+  - component: {fileID: 406281047}
   m_Layer: 0
-  m_Name: HeadDropper
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,6 +207,30 @@ Transform:
   - {fileID: 1469460239}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &406281047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406281044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1958087c3a5ab164fa5d214a4d7c32b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Input:
+    rid: 4896699909968232503
+  setting:
+    transform: {fileID: 406281046}
+    range: {x: -2.3, y: 2.3}
+    speed: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 4896699909968232503
+      type: {class: KeyboardInput, ns: SkulWatermelon.Model, asm: Assembly-CSharp}
+      data: 
 --- !u!1 &410769370
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +344,7 @@ GameObject:
   - component: {fileID: 519072868}
   - component: {fileID: 519072870}
   - component: {fileID: 519072869}
+  - component: {fileID: 519072871}
   m_Layer: 5
   m_Name: NextHeadImage
   m_TagString: Untagged
@@ -384,6 +410,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519072867}
   m_CullTransparentMesh: 1
+--- !u!114 &519072871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519072867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f97ecb8f043c3df4095c341b4d4d4d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextHead: {fileID: 519072869}
+  currentHeadRenderer: {fileID: 406281045}
+  player: {fileID: 406281047}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,71 +661,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593200963}
   m_CullTransparentMesh: 1
---- !u!1 &619233469
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 619233471}
-  - component: {fileID: 619233470}
-  m_Layer: 0
-  m_Name: StageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &619233470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619233469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91b07c8ef19b714fa30ac4b7dc0d822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageData:
-    headPrefab: {fileID: 4508582168581853510, guid: abd23e0197981d64fa5a6c1d627ea24d, type: 3}
-    headDropperTransform: {fileID: 406281046}
-    headDropperRange: {x: -2.3, y: 2.3}
-    headDropperSpeed: 2.5
-    nextHead: {fileID: 519072869}
-    currentHeadRenderer: {fileID: 1469460241}
-  gamePolicy:
-    headGenerationPolicy:
-      rid: 4896699752228061241
-    headEvolutionPolicy:
-      rid: 4896699752228061240
-  references:
-    version: 2
-    RefIds:
-    - rid: 4896699752228061240
-      type: {class: DefaultHeadEvolutionPolicy, ns: SkulWatermelon.Model, asm: Assembly-CSharp}
-      data: 
-    - rid: 4896699752228061241
-      type: {class: DefaultHeadGenerationPolicy, ns: SkulWatermelon.Model, asm: Assembly-CSharp}
-      data: 
---- !u!4 &619233471
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619233469}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &626076641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,70 +1217,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1245649586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1245649588}
-  - component: {fileID: 1245649587}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1245649587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245649586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a40e04a3dd5e4184a9c0b8d6ca29ca8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <GameResourceManager>k__BackingField:
-    head:
-    - {fileID: 4508582168581853510, guid: abd23e0197981d64fa5a6c1d627ea24d, type: 3}
-    - {fileID: 4508582168581853510, guid: f88e3f4be021e0f4085c001e8ed6723b, type: 3}
-    - {fileID: 4508582168581853510, guid: 69f52ec665d9fcc4287ab43847d9cbb9, type: 3}
-    - {fileID: 4508582168581853510, guid: 14a3dcb4a67048146b41252e181a2b65, type: 3}
-    - {fileID: 4508582168581853510, guid: 9d95c29b45978214890738bafe89476b, type: 3}
-    - {fileID: 4508582168581853510, guid: 4105175c7937e744b9774ac9e52474af, type: 3}
-    - {fileID: 4508582168581853510, guid: 0420a27efc072094cb8650d4ceba842a, type: 3}
-    - {fileID: 4508582168581853510, guid: 10b01ae29d3e6a04dba32c526ce8ca0b, type: 3}
-    - {fileID: 4508582168581853510, guid: a7574e9682c836e4d95d93a577cebbd4, type: 3}
-    - {fileID: 4508582168581853510, guid: 55715ab755338fe4facdec695002771b, type: 3}
-  input:
-    rid: 2424248573676486712
-  references:
-    version: 2
-    RefIds:
-    - rid: 2424248573676486712
-      type: {class: KeyboardInput, ns: SkulWatermelon.Model, asm: Assembly-CSharp}
-      data: 
---- !u!4 &1245649588
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245649586}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.975885, y: -1.7149608, z: 0.25064903}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1469460238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,5 +1674,3 @@ SceneRoots:
   - {fileID: 568720312}
   - {fileID: 406281046}
   - {fileID: 1608497413}
-  - {fileID: 619233471}
-  - {fileID: 1245649588}

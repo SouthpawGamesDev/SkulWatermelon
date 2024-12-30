@@ -1,6 +1,7 @@
 using SkulWatermelon.Model;
 using System.Collections;
 using System.Collections.Generic;
+using SkulWatermelon.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ namespace SkulWatermelon.UI
         
         void UpdateScore()
         {
-            scoreText.text = StageManager.Instance.GameCycle.Score.Amount.ToString();
+            scoreText.text = GameManager.Instance.StageManager.Score.Amount.ToString();
         }
     }
 }

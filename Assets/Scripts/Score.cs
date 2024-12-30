@@ -1,6 +1,6 @@
 namespace SkulWatermelon.Model
 {
-    public class Score
+    public sealed class Score
     {
         public int Amount { get; private set;}
 
